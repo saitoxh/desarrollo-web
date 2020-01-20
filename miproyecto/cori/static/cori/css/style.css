@@ -1,0 +1,13 @@
+.slider{
+    background: url("img/banner2.png");
+    background-size: cover;
+    background-position: center; 
+    height: 400px;
+}
+.texto_derecha{
+    text-align: right;
+}
+
+.texto_jus{
+    text-align: justify;
+}
