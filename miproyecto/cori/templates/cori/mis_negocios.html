@@ -18,7 +18,9 @@
         <th>Nombre negocio</th>
         <th>ubicacion</th>
         <th>tipo negocio</th>
+        {% if user.is_authenticated %}
         <th>Opciones</th>
+        {% endif %}
     </tr>
 
     {% for p in negocio1 %}
@@ -27,10 +29,13 @@
         <td>{{ p.nombre }}</td>
         <td>{{ p.ubicacion }}</td>
         <td>{{ p.tipo_negocio }}</td>
+
+        {% if user.is_authenticated %}
         <td>
             <a href="{% url 'modificar negocio' p.id %}">modificar</a>
             <a href="#" onclick="confirmarEliminacion({{p.id}})">eliminar</a>
         </td>
+        {% endif %}
     </tr>
 
     {% endfor %}
