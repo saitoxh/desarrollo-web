@@ -1,8 +1,10 @@
+
 .slider{
     background: url("img/banner2.png");
     background-size: cover;
     background-position: center; 
     height: 400px;
+    object-fit: cover;
 }
 .texto_derecha{
     text-align: right;
@@ -10,4 +12,23 @@
 
 .texto_jus{
     text-align: justify;
+}
+body {
+    margin: 0;
+    
+}
+.row_1 {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    object-fit: cover;
+    justify-content: flex-end;
+    
+
+    
+}
+.cover{ object-fit: cover; }
+
+.centrar {
+    text-align: center;
 }

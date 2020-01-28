@@ -1,0 +1,43 @@
+{% extends 'cori/base.html' %}
+
+{% load static %}
+
+{% block javascript %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{% static 'js/confirmacion.js' %}"></script>
+
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <h3>mis negocios</h3>
+
+
+<table class="table">
+    <tr>
+        <th>Nombre negocio</th>
+        <th>ubicacion</th>
+        <th>tipo negocio</th>
+        <th>Opciones</th>
+    </tr>
+
+    {% for p in negocio1 %}
+
+    <tr>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.ubicacion }}</td>
+        <td>{{ p.tipo_negocio }}</td>
+        <td>
+            <a href="{% url 'modificar negocio' p.id %}">modificar</a>
+            <a href="#" onclick="confirmarEliminacion({{p.id}})">eliminar</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+</div>
+
+
+
+{% endblock%}

@@ -32,17 +32,15 @@
 <header>
     <div class="container-fluid bg-dark fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark container">
-            <a class="navbar-brand" href="#"><img src="{% static 'img/logo2.png' %}" alt="logo2"></a>
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/logo2.png' %}" alt="logo2"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">Quienes somos</a>
-                    <a class="nav-item nav-link" href="#">Comercio</a>
-                    <a class="nav-item nav-link mr-4" href="Contacto.html">Contacto</a>
+                    <a class="nav-item nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                   
                 </div>
             </div>
         </nav>
@@ -50,10 +48,11 @@
 </header>
 
 <body>
-    {% load crispy_forms_tags %}
+    
     <div class="container">
 
-        <h2>refistro de usuario</h2>
+        <h2>registro de usuario</h2>
+        {% load crispy_forms_tags %}
         <form action="" method="POST">
 
             {% csrf_token %}

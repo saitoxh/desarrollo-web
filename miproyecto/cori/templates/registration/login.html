@@ -5,23 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
 
 <body>
     <div class="container">
-        {% load crispy_forms_tags %}
+        
         <h2>autentificacion</h2>
+        {% load crispy_forms_tags %}
     
-        <form action="" method="post">
+        <form action="" method="POST">
             {% csrf_token %}
             
             {{ form | crispy }}
         
-            <imput type="submit" value="login" class="btn btn-succes float-right"></imput>
+            <input type="submit" value="login" class="btn btn-danger float-right"></input>
         </form>
-        <a href="{% url 'social:begin' 'facebook' %}">login  con facebook</a>
+        <a href="{% url 'social:begin' 'facebook' %}">Login con facebook</a>
+       
     </div>
 </body>
 
