@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('cori.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
+    path('', include('pwa.urls')),
 ]
 
 admin.site.site_header = "administracion de negocios"

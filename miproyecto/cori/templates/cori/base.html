@@ -4,12 +4,93 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
         <title>En Mi Barrio</title>
+        
+        {% load pwa %}
+
+        {% progressive_web_app_meta %}
+
+
         {% load static %}
         {% block css %}
         {% endblock %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'css/flexboxgrid.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
+        
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyDFG3JLVnL02evX6FK99rpMox9qg1Sqr3Y",
+                authDomain: "enmibarrio-a79e9.firebaseapp.com",
+                databaseURL: "https://enmibarrio-a79e9.firebaseio.com",
+                projectId: "enmibarrio-a79e9",
+                storageBucket: "enmibarrio-a79e9.appspot.com",
+                messagingSenderId: "584865762623",
+                appId: "1:584865762623:web:8259d9345e13f29280978a"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+            let messaging = firebase.messaging();
+
+            // enlazar serviceworker.
+
+            navigator.serviceWorker
+            .register('./serviceworker.js')
+            .then(function (register) {
+                messaging.useServiceWorker(register);
+
+                messaging.requestPermission()
+                .then(function () {
+                    console.log("el usuario a permitido las notificaciones")
+
+                    return messaging.getToken();
+                })
+                .then(function (token) {
+                    console.log(token);
+
+                    fetch('guardar_token/', {
+                        method: 'post',
+                        headers:{
+                            'Content-Type':'application/json',
+                            'accept':'application/json'
+                        },
+                        body:JSON.stringify({
+                            'token':token
+                        })
+                    })
+                })
+                .catch(function (e) {
+                    console.log("el usuario no a aceptado")
+                })
+            })
+
+
+            //recepcion de notificacion
+
+            messaging.onMessage(function (payload) {
+                let title = 'titulo de la notificacion';
+
+                let options = {
+                    body:'este es el mesaje ',
+                    icon:'/static/img/logo2.png'
+                }
+
+                let mensaje = new Notification(title, options);
+            });
+            
+        </script>
+
+
+         
         
         <style>.slider{
             background: url("{% static 'img/banner2.png' %}");
@@ -117,4 +198,5 @@
         
         
     </body>
+
 </html>

@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'cori.apps.CoriConfig',
     'rest_framework',
     'social_django',
+    'pwa',
+    'fcm_django',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -145,4 +147,19 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'serviceworker.js')
+
+FCM_DJANGO_SETTINGS = {
+        "APP_VERBOSE_NAME": "enmibarrio",
+         # default: _('FCM Django')
+        "FCM_SERVER_KEY": "AIzaSyDFG3JLVnL02evX6FK99rpMox9qg1Sqr3Y",
+         # true if you want to have only one active device per registered user at a time
+         # default: False
+        "ONE_DEVICE_PER_USER": False,
+         # devices to which notifications cannot be sent,
+         # are deleted upon receiving error response from FCM
+         # default: False
+        "DELETE_INACTIVE_DEVICES": True,
+}
 

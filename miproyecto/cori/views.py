@@ -7,8 +7,41 @@ from django.contrib.auth import login, authenticate
 from rest_framework import viewsets
 from .serializers import negocioSerializer
 
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+
+from django.http import HttpResponse, HttpResponseBadRequest
+
+from django.core import serializers
+import json
+from fcm_django.models import FCMDevice
+
 
 # Create your views here.
+@csrf_exempt
+@require_http_methods(['POST'])
+def guardar_token(request):
+    body = request.body.decode('utf-8')
+    bodyDict = json.loads(body)
+
+    token = bodyDict['token']
+
+    existe = FCMDevice.objects.filter(registration_id = token, active=True)
+
+    if len(existe) > 0:
+        return HttpResponseBadRequest(json.dumps({'mensaje':'el token ya existe'}))
+
+    dispositivo = FCMDevice()
+    dispositivo.registration_id = token
+    dispositivo.active = True
+
+    if request.user.is_authenticated:
+        dispositivo.user = request.user
+    try:
+        dispositivo.save()
+        return HttpResponse(json.dumps({'mensaje':'token guardado'}))
+    except:
+        return HttpResponseBadRequest(json.dumps({'mensaje':'no se ha podido guardar'}))
 
 def home(request):
     return render(request, 'cori/home.html')
@@ -49,6 +82,10 @@ def nuevo_negocio (request):
         formulario = negocioForm(request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
+
+           
+            
+
             data['mensaje'] = 'guardado correctamente'
     return render(request, 'cori/nuevo_negocio.html', data )
 @login_required
